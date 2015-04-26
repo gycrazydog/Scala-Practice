@@ -16,11 +16,21 @@ object Test {
     if (n <= 0) throw new IllegalArgumentException
     else lastNthR(n, ls, ls)
   }
+  def length[A](L1 : List[A]):Int = L1.length
+  def reverseList[A](L1: List[A]) : List[A] = {
+    def recursiveReverseList(resultList:List[A],curList: List[A]) : List[A]= curList match{
+      case Nil => resultList
+      case _ :: tail => recursiveReverseList(curList.head::resultList,tail)
+    }
+    recursiveReverseList(Nil,L1)
+  }
+  def reverseFunctional[A](L1 : List[A]) : List[A] = L1.foldLeft(List[A]())((res,tail)=>tail::res)
   def firstN[A](n:Int,ls:List[A]): A = ls match {
+    case Nil => throw new NoSuchElementException
     case _ :: tail => if (n == 1) ls.head else firstN(n-1,tail)
   }
   def main(args : Array[String]){
       println(lastElement(List(1,2)));
-      println(firstN(2,List(1,2)))
+      println(reverseFunctional(List(1,2)))
   }
 }
